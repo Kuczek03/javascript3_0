@@ -3,23 +3,38 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>NOAA Datasets</title>
+    <title>NOAA Climate Data</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
     <div class="container">
-      <h1>NOAA Climate Datasets</h1>
+      <h1>NOAA Climate Data Fetcher</h1>
+      <form id="dataForm">
+        <label for="datasetid">Dataset ID:</label>
+        <input type="text" id="datasetid" name="datasetid" required />
+
+        <label for="locationid">Location ID:</label>
+        <input type="text" id="locationid" name="locationid" required />
+
+        <label for="startdate">Start Date (YYYY-MM-DD):</label>
+        <input type="date" id="startdate" name="startdate" required />
+
+        <label for="enddate">End Date (YYYY-MM-DD):</label>
+        <input type="date" id="enddate" name="enddate" required />
+
+        <button type="submit">Fetch Data</button>
+      </form>
       <div id="loading" class="hidden">Loading data...</div>
-      <table id="datasetsTable" class="hidden">
+      <table id="dataTable" class="hidden">
         <thead>
           <tr>
-            <th>Dataset ID</th>
-            <th>Name</th>
-            <th>Description</th>
+            <th>Date</th>
+            <th>Station ID</th>
+            <th>Value</th>
           </tr>
         </thead>
-        <tbody id="datasetsTableBody"></tbody>
+        <tbody id="dataTableBody"></tbody>
       </table>
       <p id="errorMessage" class="hidden">Failed to load data.</p>
     </div>
