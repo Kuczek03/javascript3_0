@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Lab3</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Country Information Finder</h1>
+      <form id="searchForm">
+        <label for="capitalInput">Enter Capital City</label>
+        <input
+          type="text"
+          id="capitalInput"
+          placeholder="e.g. Warsaw"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+      <table id="resultTable" class="hidden">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Capital</th>
+            <th>Population</th>
+            <th>Region</th>
+            <th>Subregion</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+      <p id="errorMessage" class="hidden">
+        Country not found. Please try another capital.
+      </p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
