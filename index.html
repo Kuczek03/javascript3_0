@@ -3,27 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Lab3</title>
+    <title>NOAA Datasets</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
     <div class="container">
-      <h1>NOAA Climate Stations</h1>
+      <h1>NOAA Climate Datasets</h1>
       <div id="loading" class="hidden">Loading data...</div>
-      <table id="stationsTable" class="hidden">
+      <table id="datasetsTable" class="hidden">
         <thead>
           <tr>
-            <th>Station ID</th>
+            <th>Dataset ID</th>
             <th>Name</th>
-            <th>State</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
+            <th>Description</th>
           </tr>
         </thead>
-        <tbody id="stationsTableBody"></tbody>
+        <tbody id="datasetsTableBody"></tbody>
       </table>
-      <p id="errorMessage" class="hidden">Fail to load data.</p>
+      <p id="errorMessage" class="hidden">Failed to load data.</p>
     </div>
 
     <script src="script.js"></script>

@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     const apiToken = "gjIFODuBxcHVaCuutjoOdRlCSNMGZOXS";
-    const stationsTable = document.getElementById("stationsTable");
-    const stationsTableBody = document.getElementById("stationsTableBody");
+    const datasetsTable = document.getElementById("datasetsTable");
+    const datasetsTableBody = document.getElementById("datasetsTableBody");
     const loadingMessage = document.getElementById("loading");
     const errorMessage = document.getElementById("errorMessage");
-    fetchStations();
-  
-    function fetchStations() {
+    fetchDatasets();
+    function fetchDatasets() {
       loadingMessage.classList.remove("hidden");
-      fetch("https://www.ncei.noaa.gov/cdo-web/api/v2/stations", {
+      fetch("https://www.ncei.noaa.gov/cdo-web/api/v2/datasets", {
         headers: {
           token: apiToken,
         },
@@ -21,26 +20,26 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then((data) => {
           loadingMessage.classList.add("hidden");
-          displayStations(data.results);
+          displayDatasets(data.results);
         })
         .catch((error) => {
+          loadingMessage.classList.add("hidden");
           console.error("Error fetching data:", error);
           showError("Failed to load data. Please try again later.");
         });
     }
   
-    function displayStations(stations) {
-      stationsTable.classList.remove("hidden");
-      stations.forEach((station) => {
+    function displayDatasets(datasets) {
+      datasetsTable.classList.remove("hidden");
+  
+      datasets.forEach((dataset) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${station.id}</td>
-          <td>${station.name || "N/A"}</td>
-          <td>${station.state || "N/A"}</td>
-          <td>${station.latitude || "N/A"}</td>
-          <td>${station.longitude || "N/A"}</td>
+          <td>${dataset.id}</td>
+          <td>${dataset.name || "N/A"}</td>
+          <td>${dataset.description || "N/A"}</td>
         `;
-        stationsTableBody.appendChild(row);
+        datasetsTableBody.appendChild(row);
       });
     }
   
