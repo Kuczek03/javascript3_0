@@ -9,32 +9,21 @@
 
   <body>
     <div class="container">
-      <h1>Country Information Finder</h1>
-      <form id="searchForm">
-        <label for="capitalInput">Enter Capital City</label>
-        <input
-          type="text"
-          id="capitalInput"
-          placeholder="e.g. Warsaw"
-          required
-        />
-        <button type="submit">Search</button>
-      </form>
-      <table id="resultTable" class="hidden">
+      <h1>NOAA Climate Stations</h1>
+      <div id="loading" class="hidden">Loading data...</div>
+      <table id="stationsTable" class="hidden">
         <thead>
           <tr>
+            <th>Station ID</th>
             <th>Name</th>
-            <th>Capital</th>
-            <th>Population</th>
-            <th>Region</th>
-            <th>Subregion</th>
+            <th>State</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
           </tr>
         </thead>
-        <tbody id="resultBody"></tbody>
+        <tbody id="stationsTableBody"></tbody>
       </table>
-      <p id="errorMessage" class="hidden">
-        Country not found. Please try another capital.
-      </p>
+      <p id="errorMessage" class="hidden">Fail to load data.</p>
     </div>
 
     <script src="script.js"></script>

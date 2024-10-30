@@ -1,60 +1,52 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document
-        .getElementById("searchForm")
-        .addEventListener("submit", function (event) {
-            event.preventDefault();
-            const capital = document
-                .getElementById("capitalInput")
-                .value.trim();
-            fetchCountriesByCapital(capital);
-        });
-});
-
-function fetchCountriesByCapital(capital) {
-    const url = `https://restcountries.com/v3.1/all`;
-
-    fetch(url)
-        .then((response) => response.json())
+    const apiToken = "gjIFODuBxcHVaCuutjoOdRlCSNMGZOXS";
+    const stationsTable = document.getElementById("stationsTable");
+    const stationsTableBody = document.getElementById("stationsTableBody");
+    const loadingMessage = document.getElementById("loading");
+    const errorMessage = document.getElementById("errorMessage");
+    fetchStations();
+  
+    function fetchStations() {
+      loadingMessage.classList.remove("hidden");
+      fetch("https://www.ncei.noaa.gov/cdo-web/api/v2/stations", {
+        headers: {
+          token: apiToken,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
         .then((data) => {
-            const country = data.find(
-                (country) =>
-                    country.capital &&
-                    country.capital[0].toLowerCase() === capital.toLowerCase(),
-            );
-
-            if (country) {
-                displayCountryData(country);
-            } else {
-                showError("Country not found. Please try another capital.");
-            }
+          loadingMessage.classList.add("hidden");
+          displayStations(data.results);
         })
         .catch((error) => {
-            showError("An error occurred while fetching data.");
-            console.error("Error:", error);
+          console.error("Error fetching data:", error);
+          showError("Failed to load data. Please try again later.");
         });
-}
-
-function displayCountryData(country) {
-    document.getElementById("errorMessage").classList.add("hidden");
-    document.getElementById("resultTable").classList.remove("hidden");
-
-    const resultBody = document.getElementById("resultBody");
-    resultBody.innerHTML = "";
-
-    const row = document.createElement("tr");
-    row.innerHTML = `
-        <td>${country.name.common}</td>
-        <td>${country.capital ? country.capital[0] : "N/A"}</td>
-        <td>${country.population ? country.population.toLocaleString() : "N/A"}</td>
-        <td>${country.region || "N/A"}</td>
-        <td>${country.subregion || "N/A"}</td>
-    `;
-    resultBody.appendChild(row);
-}
-
-function showError(message) {
-    document.getElementById("resultTable").classList.add("hidden");
-    const errorMessage = document.getElementById("errorMessage");
-    errorMessage.textContent = message;
-    errorMessage.classList.remove("hidden");
-}
+    }
+  
+    function displayStations(stations) {
+      stationsTable.classList.remove("hidden");
+      stations.forEach((station) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${station.id}</td>
+          <td>${station.name || "N/A"}</td>
+          <td>${station.state || "N/A"}</td>
+          <td>${station.latitude || "N/A"}</td>
+          <td>${station.longitude || "N/A"}</td>
+        `;
+        stationsTableBody.appendChild(row);
+      });
+    }
+  
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.remove("hidden");
+    }
+  });
+  
